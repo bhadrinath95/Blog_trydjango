@@ -1,4 +1,4 @@
-30. https://www.youtube.com/watch?v=549gvYqVRsk&list=PLEsfXFp6DpzQFqfCur9CJ4QnKQTVXUsRy&index=30
+https://www.youtube.com/watch?v=XMu0T6L2KRQ&list=PLEsfXFp6DpzTOcOVdZF-th7BS_GYGguAS&index=2&t=0s
 Digital marketplace = https://www.codingforentrepreneurs.com/projects/digital-marketplace
 Most common regular expressions = https://github.com/codingforentrepreneurs/Guides/blob/master/all/common_url_regex.md
 Boot strap = https://getbootstrap.com/
