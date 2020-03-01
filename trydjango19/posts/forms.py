@@ -1,9 +1,3 @@
-'''
-Created on 25-Feb-2020
-
-@author: BHADRINATH
-'''
-
 from django import forms
 from .models import Post
 
@@ -12,5 +6,9 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = [
                 "title",
-                "content"
+                "content",
+                "image",
+                "draft",
+                "publish"
             ]
+    
