@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,21 +6,87 @@
 <title>{% block head_title %}Try django 1.9{% endblock head_title %}</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />
+
 <link rel='stylesheet' href='{% static "/css/base.css" %}' />
+<!-- Currently, here's a workaround : add .col-xs-12 to your responsive image. -->
+<style>
+.wmd-preview{
+    display: none;
+} 
+.img-responsive { 
+    width:100%;
+}
+.wmd-panel {
+	margin-right: 0px !important;
+	margin-left: 0px !important;
+}
+</style>
 <style>
 {% block style %}{% endblock style %}
 </style>
+{% block head_extra %}{% endblock head_extra %}
 </head>
 <body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
 {% include "messages_display.html" %}
 <div class ='container'>
 {% block content %}
 
 {% endblock content %}
 </div>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js"></script>
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+	
+	
+	$(".content-markdown").each(function(){
+		var content = $(this).text()
+		var markedContent = marked(content)
+		$(this).html(markedContent)
+	})
+	$(".post-detail-item img").each(function(){
+		$(this).addClass("img-responsive")
+	})
+	
+	var contentInput = $("#wmd-input-id_content");
+	
+	function setContent(value) {
+		var markedContent = marked(value)
+		$("#preview-content").html(markedContent)
+		$("#preview-content img").each(function(){
+			$(this).addClass("img-responsive")
+		})
+	}
+	setContent(contentInput.val())
+	contentInput.keyup(function(){
+		var newContent = $(this).val();
+		setContent(newContent)
+	})
+	
+	var titleInput = $("#id_title");
+	
+	function setTitle(value) {
+		console.log(value)
+		$("#preview-title").text(value);
+	}
+	
+	setTitle(titleInput.val())
+	
+	titleInput.keyup(function(){
+		var newContent = $(this).val();
+		setTitle(newContent)
+	})
+	
+})
+
+</script>
 </body>
 </html>
 
