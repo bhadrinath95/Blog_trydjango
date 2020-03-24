@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>{% block head_title %}Try django 1.9{% endblock head_title %}</title>
+<title>{% block head_title %}Blog Post{% endblock head_title %}</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />
@@ -31,12 +31,24 @@
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
 {% include "messages_display.html" %}
-<div class ='container'>
+<div class='container'>
+	<ol class='breadcrumb'>
+		<li class='breadcrumb-item'><a href='{% url "posts:display" %}'>Home</a></li>
+		
+		{% if not request.user.is_authenticated %}
+		<li class='breadcrumb-item'><a href='{% url "register" %}'>Register</a></li>
+		<li class='breadcrumb-item'><a href='{% url "login" %}'>Login</a></li>
+		{% else %}
+		<li class='breadcrumb-item'><a href='{% url "logout" %}'>Logout</a></li>
+		{% endif %}
+	</ol>
+	
+
 {% block content %}
 
 {% endblock content %}
 </div>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.8.0/marked.min.js"></script>
@@ -45,6 +57,9 @@
 
 $(document).ready(function(){
 	
+	$(".comment-reply-btn").click(function(){
+		$(".comment-reply").fadeToggle();
+	})
 	
 	$(".content-markdown").each(function(){
 		var content = $(this).text()
@@ -83,6 +98,7 @@ $(document).ready(function(){
 		var newContent = $(this).val();
 		setTitle(newContent)
 	})
+	
 	
 })
 
